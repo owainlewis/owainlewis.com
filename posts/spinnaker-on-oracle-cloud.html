@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!doctype html>
+  <html>
+  <head>
+    <meta charset="utf-8">
+    <title>Owain Lewis | Software Engineer | Haskell Programmer</title>
+    <meta content="Freelance software developer, functional programmer. Software engineer interested in Haskell, Clojure and Scala"
+          name="description" />
+    <meta content="Owain Lewis" name="author" />
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.2/normalize.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,600,700'>
+  
+    <link rel="stylesheet" href="/static/stylesheets/main.css">
+  </head>
+  <body>
+  <div class="container">
+</head>
+<body>
+<h1 id="spinnaker-on-oracle-cloud">Spinnaker On Oracle Cloud</h1>
+<p>The following guide will show you how to manually install and configure <a href="https://spinnaker.io">Spinnaker</a> running on Oracle BMCS.</p>
+<h2 id="setup">Setup</h2>
+<p>You will need an bmcs_api_key.pem file and an Ubuntu 14.04 instance. Create your Ubuntu instance using the BMCS UI and copy your API onto the machine.</p>
+<pre><code>$ scp -r ~/.oraclebmc/ ubuntu@PUBLIS_IP:/home/ubuntu/</code></pre>
+<p>Then connect to your instance and use Halyard to install Spinnaker.</p>
+<pre><code>$ ssh ubuntu@PUBLIC_IP</code></pre>
+<h2 id="using-halyard">Using Halyard</h2>
+<p>We recommend Halyard for installing and configuring Spinnaker. Provided you have a set of BMCS API credentials, the following steps will install Spinnaker on your Bare Metal Account.</p>
+<p>Halyard and Spinnaker (currently) only work with Ubuntu 14.04</p>
+<pre><code>$ sudo apt update
+
+$ curl -O https://raw.githubusercontent.com/spinnaker/halyard/master/install/stable/InstallHalyard.sh
+$ sudo bash InstallHalyard.sh
+
+$ hal config provider oraclebmcs enable
+
+$ hal config provider oraclebmcs account add default \
+--compartment-id &quot;ocid1.compartment.oc1..XXX&quot; \
+--region &quot;us-phoenix-1&quot; \
+--ssh-private-key-file-path &quot;/home/ubuntu/.oraclebmc/bmcs_api_key.pem&quot; \
+--tenancyId &quot;ocid1.tenancy.oc1..XXX&quot; \
+--user-id &quot;ocid1.user.oc1..XXX&quot; \
+--fingerprint &quot;a4:bb:34:43:54:c5...&quot;
+
+$ hal config storage oraclebmcs edit \
+--bucket-name &quot;spinnaker&quot; \
+--compartment-id &quot;ocid1.compartment.oc1..XXX&quot; \
+--fingerprint &quot;a4:bb:34:43:54:c5...&quot; \
+--namespace &quot;spinnaker&quot; \
+--region &quot;us-phoenix-1&quot; \
+--ssh-private-key-file-path &quot;/home/ubuntu/.oraclebmc/bmcs_api_key.pem&quot; \
+--tenancy-id &quot;ocid1.tenancy.oc1..XXX&quot; \
+--user-id &quot;ocid1.user.oc1..XXX&quot;
+
+$ hal config storage edit --type oraclebmcs
+
+$ sudo hal deploy apply</code></pre>
+</div>
+<footer id="footer">
+    <div class="container">
+      Copyright 2017 Owain Lewis
+    </div>
+  </footer>
+</body>
+</html>
+</body>
+</html>
