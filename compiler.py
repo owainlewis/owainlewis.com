@@ -64,7 +64,7 @@ def pandoc_compile_command(post_file_name):
 def pandoc_compile():
     for f in os.listdir(POST_DIR):
         cmd = pandoc_compile_command(f)
-        return run_cmd(cmd)
+        run_cmd(cmd)
 
 
 def main():
