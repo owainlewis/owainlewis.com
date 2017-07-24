@@ -2,10 +2,8 @@ import os, os.path, time
 import re
 import subprocess
 
-
 POST_DIR = '_posts'
 OUT_DIR  = 'posts'
-
 
 class PostData(object):
     """ A utility class for extracting link text information """
