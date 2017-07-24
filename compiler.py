@@ -25,7 +25,7 @@ class PostData(object):
         return '/%s/%s' % (OUT_DIR, normalised)
 
     def link_text(self):
-        return "##### %s\n### [%s](%s)" % \
+        return "### %s\n## [%s](%s)" % \
             (self.get_last_modified(), self.get_title(), self.get_link_ref())
 
 
