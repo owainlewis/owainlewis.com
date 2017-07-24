@@ -1,6 +1,6 @@
 .PHONY: build
 build:
-	scripts/build.sh
+	python compiler.py
 
 .PHONY: clean
 clean:
