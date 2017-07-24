@@ -227,3 +227,9 @@ blockquote {
 
   #intro .contact li { display: block; margin-bottom: 12px; }
 }
+
+.blog {
+    font-size: 18px;
+    min-height: 900px;
+    padding: 48px 0;
+}
