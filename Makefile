@@ -1,7 +1,7 @@
 .PHONY: build
 build:
-	./build.sh
+	scripts/build.sh
 
 .PHONY: clean
 clean:
-	rm -rf posts/*.html
+	rm -r posts/*.html
