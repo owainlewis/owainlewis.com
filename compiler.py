@@ -3,6 +3,7 @@ import re
 import subprocess
 
 POST_DIR = '_posts'
+
 OUT_DIR  = 'posts'
 
 class PostData(object):
@@ -17,8 +18,8 @@ class PostData(object):
         return ' '.join(normalised.split('-')).title()
 
     def get_last_modified(self):
-        last_mod = time.gmtime(os.path.getmtime(self.file_path))
-        return time.strftime('%d/%m/%Y', last_mod)
+        created = time.gmtime(os.path.getctime(self.file_path))
+        return time.strftime('%d/%m/%Y', created)
 
     def get_link_ref(self):
         normalised = re.sub('.md', '.html', self.file_name)

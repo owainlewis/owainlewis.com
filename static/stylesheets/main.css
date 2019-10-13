@@ -1,13 +1,13 @@
 * { -webkit-font-smoothing: antialiased; font-smoothing: always; }
 
 body {
-  font-family:'Source Sans Pro', Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family:'Fira Sans', Helvetica, Arial, "Lucida Grande", sans-serif;
   font-size: 16px;
   color: #444;
   line-height: 1.5;
 }
 
-h1, h2, h3 { color: #222; font-weight: 600; }
+h1, h2, h3 { color: #222; font-weight: 500; }
 
 a, a:hover { color: #6390a7; }
 
@@ -91,7 +91,7 @@ blockquote {
 }
 
 #hero h1 {
-  font-size: 2.8em;
+    font-size: 2.6em;
 }
 
 #hero nav h1 {
@@ -170,7 +170,7 @@ blockquote {
 }
 
 #intro h2 {
-  font-size: 2.4em;
+  font-size: 2.2em;
   font-weight: 300;
 }
 
@@ -232,4 +232,18 @@ blockquote {
     font-size: 18px;
     min-height: 900px;
     padding: 48px 0;
+}
+
+.blog h1, .blog h2 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+}
+
+.internal #hero {
+    background: #fff;
+    background-url: none;
+}
+
+.internal #hero h1, .internal #intro h2, .internal #hero a {
+    color: #333;
 }
