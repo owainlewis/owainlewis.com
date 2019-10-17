@@ -82,7 +82,6 @@ blockquote {
 
 #hero .social {
   text-align: center;
-  margin: 48px 0 0 0;
 }
 
 #hero .social li {
@@ -102,7 +101,7 @@ blockquote {
 }
 
 #hero nav {
-  height: 96px;
+  height: 32px;
 }
 
 #hero.article-hero {
@@ -127,9 +126,9 @@ blockquote {
 .menu ul li a { text-decoration: none; color: white; color: rgba(255,255,255,0.8); }
 
 #hero .inner {
-  margin: 172px 0 296px 0;
   text-align: center;
   color: white;
+  padding: 120px;
 }
 
 #hero h2 {
