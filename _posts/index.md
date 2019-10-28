@@ -1,2 +1,4 @@
-### 13/10/2019
-## [Why Are You Vegan](/posts/why-are-you-vegan.html)
+<div class="posts">
+- ###[Hashing](/posts/index.html)
+  <span>October 2019</span>
+</div>

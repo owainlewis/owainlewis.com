@@ -67,7 +67,6 @@ def pandoc_compile():
 
 
 def main():
-    build_post_index()
     pandoc_compile()
 
 
