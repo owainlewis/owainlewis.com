@@ -50,7 +50,7 @@ def build_post_index():
 
 def pandoc_compile_command(post_file_name):
     """ Generates the shell command required by Pandoc """
-    output_cmd = '-o %s/%s' % (OUT_DIR, re.sub('.md', '.html', post_file_name))
+    output_cmd = '-t html5 -o %s/%s' % (OUT_DIR, re.sub('.md', '.html', post_file_name))
     post_relative_path = '%s/%s' % (POST_DIR, post_file_name)
     lines = ['pandoc',
              '-H static/html/header.html',

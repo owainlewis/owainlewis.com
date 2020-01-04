@@ -1,3 +1,5 @@
+all: dev
+
 .PHONY: build
 build:
 	python compiler.py
@@ -6,5 +8,5 @@ build:
 clean:
 	rm -r posts/*.html
 
-dev:
+dev: clean build
 	python -m SimpleHTTPServer 5000

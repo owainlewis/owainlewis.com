@@ -186,7 +186,7 @@ blockquote {
 #intro .contact li {
   margin: 0 12px 0 0;
   font-weight: bold;
-  display: inline;o
+  display: inline;
 }
 
 #main {
@@ -215,6 +215,7 @@ blockquote {
 
   #hero .inner {
     margin: 72px 0 120px 0;
+    padding: 120px 0px;
   }
 
   #hero h1 { font-size: 1.8em; }
@@ -231,7 +232,7 @@ blockquote {
 .blog {
     font-size: 18px;
     min-height: 900px;
-    padding: 48px 0;
+    padding: 0 0 48px 0;
 }
 
 .blog h1, .blog h2 {
