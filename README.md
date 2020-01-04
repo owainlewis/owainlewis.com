@@ -17,3 +17,7 @@ Build and compile the static site
 ```
 make build
 ```
+
+## Preview
+
+![](https://raw.githubusercontent.com/owainlewis/owainlewis.github.io/master/static/images/preview.png)
