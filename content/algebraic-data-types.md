@@ -21,7 +21,9 @@ Examples of sum types:
 - A list is either empty [] OR an item appended to another list a : [b]
 - A traffic light is either Red OR Amber OR Green
 
-	data Bool = False | True
+```haskell
+data Bool = False | True
+```
 
 The most general sum type in Haskell is Either.
 
@@ -40,7 +42,7 @@ Examples of product types:
 - A Person has a Name (String), Age (Integer) and Email Address (String)
 
 ```haskell
-data Person = String Int String
+data Person = Person String Int String
 
 data Person = Person {
 	name  :: String,
