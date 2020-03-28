@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Owain Lewis | Software Engineering Manager | Software Engineer</title>
+    <meta content="Software Engineering Manager. Freelance Software Engineer. Haskell, Clojure, Java, Scala"
+      name="description" />
+    <meta content="Owain Lewis" name="author" />
+    <meta name="viewport" content="width=device-width">
+        <meta name="author" content="Owain Lewis">
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.2/normalize.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+    <link rel="stylesheet" href="../static/stylesheets/main.css">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-149985638-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+	dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'UA-149985638-1');
+    </script>
+  </head>
+  <body>
+    <section id="hero">
+      <div class="overlay"></div>
+      <div class="container">
+	<nav class="menu">
+	  <h1 class="logo"><a href="/">Owain<span>Lewis</span></a></h1>
+	  <ul>
+	    <li><a href="/posts">Writing</a></li>
+	  </ul>
+	</nav>
+      </div>
+    </section>
+    <section id="main" class="post">
+      <div class="container">
+	<div class="row">
+	  <h1>Contents</h1>
+	  <ul class="toc">
+<ul>
+<li><a href="#algebraic-data-types-adt">Algebraic Data Types (ADT)</a><ul>
+<li><a href="#sum-types">Sum Types</a></li>
+<li><a href="#product-types-tuples-records">Product Types (Tuples, Records)</a></li>
+<li><a href="#further-reading">Further Reading</a></li>
+</ul></li>
+</ul>
+	  </ul>
+<h1 id="algebraic-data-types-adt">Algebraic Data Types (ADT)</h1>
+<p>Algebraic Data Types, are used in functional programming as a way of representing data. An Algebraic Data Type is a type that’s formed by composing other types.</p>
+<p>There are two variants; sum types (OR) and product types (AND).</p>
+<ul>
+<li>Sum (A | B, meaning A OR B but not both)</li>
+<li>Product ( A + B, meaning A and B)</li>
+</ul>
+<h2 id="sum-types">Sum Types</h2>
+<p>A sum type, also known as a tagged union, is a type that can be one of multiple possible options.</p>
+<p>Examples of sum types:</p>
+<ul>
+<li>A boolean value is either True OR False</li>
+<li>A list is either empty ([]) OR an item appended to another list (a : [b])</li>
+<li>A traffic light is either Red OR Amber OR Green</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">data</span> <span class="dt">Bool</span> <span class="ot">=</span> <span class="dt">False</span> <span class="op">|</span> <span class="dt">True</span></a></code></pre></div>
+<p>The most general sum type in Haskell is Either. A value of type Either a b can be either a OR b but not both.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">data</span> <span class="dt">Either</span> a b <span class="ot">=</span> <span class="dt">Left</span> a <span class="op">|</span> <span class="dt">Right</span> b</a></code></pre></div>
+<h2 id="product-types-tuples-records">Product Types (Tuples, Records)</h2>
+<p>Product types are created by combining two or more types with AND. The canonical implementation of a product of two types in a programming language is a pair (a, b).</p>
+<p>Examples of product types:</p>
+<ul>
+<li>A Person has a Name (String), Age (Integer) and Email Address (String)</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">data</span> <span class="dt">Person</span> <span class="ot">=</span> <span class="dt">Person</span> <span class="dt">String</span> <span class="dt">Int</span> <span class="dt">String</span></a>
+<a class="sourceLine" id="cb3-2" title="2"></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="kw">data</span> <span class="dt">Person</span> <span class="ot">=</span> <span class="dt">Person</span> {</a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="ot">    name  ::</span> <span class="dt">String</span>,</a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="ot">    age   ::</span> <span class="dt">Int</span>,</a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="ot">    email ::</span> <span class="dt">String</span></a>
+<a class="sourceLine" id="cb3-7" title="7">}</a></code></pre></div>
+<p>In most programming languages, combining types with AND is often the only way to construct new types.</p>
+<h2 id="further-reading">Further Reading</h2>
+<p><a href="https://codewords.recurse.com/issues/three/algebra-and-calculus-of-algebraic-data-types">https://codewords.recurse.com/issues/three/algebra-and-calculus-of-algebraic-data-types</a></p>
+	</div>
+      </div>
+    </section>
+    <footer id="footer">
+      <div class="container">
+	Copyright 2020 Owain Lewis
+      </div>
+    </footer>
+  </body>
+</html>

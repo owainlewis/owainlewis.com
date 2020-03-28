@@ -1,23 +1,17 @@
 # Personal Website
 
-Personal website
+My personal website is a static website compiled using Pandoc.
 
 ## Development
-
-A simply Python script is used in conjunction with Pandoc to generate static HTML.
 
 Run local development server
 
 ```
-make dev
+make server
 ```
 
 Build and compile the static site
 
 ```
-make build
+make
 ```
-
-## Preview
-
-![](https://raw.githubusercontent.com/owainlewis/owainlewis.github.io/master/static/images/preview.png)

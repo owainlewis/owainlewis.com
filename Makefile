@@ -1,15 +1,14 @@
-PANDOC=pandoc
-INPUT = content/algebraic-data-types.md
+all: build
 
-INPUT_DIR = content
-OUTPUT_DIR = posts
 
-TEMPLATE = static/templates/template.html
+.PHONY: server
+server:
+	@python3 -m http.server 8000
 
-FLAGS = --standalone --toc --toc-depth=2 --highlight-style tango
+.PHONY: clean
+clean:
+	@rm -rf posts/*.html
 
-all:
-	@for f in $(shell ls ${INPUT_DIR}); do $${f%%.*}; done
-
-build:
-	$(PANDOC) --template $(TEMPLATE) -s $(INPUT) -t html $(FLAGS) -o $(OUTPUT_DIR)/algebraic-data-types.html
+.PHONY: build
+build: clean
+	@./compile.sh
