@@ -18,16 +18,14 @@ A sum type, also known as a tagged union, is a type that can be one of multiple 
 Examples of sum types:
 
 - A boolean value is either True OR False
-- A list is either empty [] OR an item appended to another list a : [b]
+- A list is either empty ([]) OR an item appended to another list (a : [b])
 - A traffic light is either Red OR Amber OR Green
 
 ```haskell
 data Bool = False | True
 ```
 
-The most general sum type in Haskell is Either.
-
-A value of type Either a b can be either a OR b but not both.
+The most general sum type in Haskell is Either. A value of type Either a b can be either a OR b but not both.
 
 ```haskell
 data Either a b = Left a | Right b
