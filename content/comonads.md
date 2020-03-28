@@ -4,7 +4,7 @@
 
 # Comonads
 
-A comonad is the categorical dual of a monad. In simple terms, it is a monad with the arrows reversed. It's typeclass with three operations
+A comonad is the categorical dual of a monad. In simple terms, it is a monad with the arrows reversed. It is a typeclass with three operations:
 
 - extract (the dual of return)
 - duplicate (the dual of join)
