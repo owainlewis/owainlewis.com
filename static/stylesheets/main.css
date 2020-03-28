@@ -11,6 +11,8 @@ h1, h2, h3 { color: #222; font-weight: 500; }
 
 a, a:hover { color: #6390a7; }
 
+.toc { margin: 0; padding: 0; }
+
 .toc li { list-style: disc; }
 
 .toc li ul {

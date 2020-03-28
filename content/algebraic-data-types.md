@@ -28,7 +28,9 @@ data Bool = False | True
 The most general sum type in Haskell is Either. A value of type Either a b can be either a OR b but not both.
 
 ```haskell
-data Either a b = Left a | Right b
+data Either a b =
+	  Left a
+	| Right b
 ```
 
 ## Product Types (Tuples, Records)
@@ -40,7 +42,8 @@ Examples of product types:
 - A Person has a Name (String), Age (Integer) and Email Address (String)
 
 ```haskell
-data Person = Person String Int String
+data Person =
+	Person String Int String
 
 data Person = Person {
 	name  :: String,

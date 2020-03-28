@@ -42,7 +42,7 @@
     <section id="main" class="post">
       <div class="container">
 	<div class="row">
-	  <ul class="toc">
+	  	  <ul class="toc">
 <ul>
 <li><a href="#algebraic-data-types-adt">Algebraic Data Types (ADT)</a><ul>
 <li><a href="#sum-types">Sum Types</a></li>
@@ -68,20 +68,23 @@
 </ul>
 <div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">data</span> <span class="dt">Bool</span> <span class="ot">=</span> <span class="dt">False</span> <span class="op">|</span> <span class="dt">True</span></a></code></pre></div>
 <p>The most general sum type in Haskell is Either. A value of type Either a b can be either a OR b but not both.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">data</span> <span class="dt">Either</span> a b <span class="ot">=</span> <span class="dt">Left</span> a <span class="op">|</span> <span class="dt">Right</span> b</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">data</span> <span class="dt">Either</span> a b <span class="ot">=</span></a>
+<a class="sourceLine" id="cb2-2" title="2">      <span class="dt">Left</span> a</a>
+<a class="sourceLine" id="cb2-3" title="3">    <span class="op">|</span> <span class="dt">Right</span> b</a></code></pre></div>
 <h2 id="product-types-tuples-records">Product Types (Tuples, Records)</h2>
 <p>Product types are created by combining two or more types with AND. The canonical implementation of a product of two types in a programming language is a pair (a, b).</p>
 <p>Examples of product types:</p>
 <ul>
 <li>A Person has a Name (String), Age (Integer) and Email Address (String)</li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">data</span> <span class="dt">Person</span> <span class="ot">=</span> <span class="dt">Person</span> <span class="dt">String</span> <span class="dt">Int</span> <span class="dt">String</span></a>
-<a class="sourceLine" id="cb3-2" title="2"></a>
-<a class="sourceLine" id="cb3-3" title="3"><span class="kw">data</span> <span class="dt">Person</span> <span class="ot">=</span> <span class="dt">Person</span> {</a>
-<a class="sourceLine" id="cb3-4" title="4"><span class="ot">    name  ::</span> <span class="dt">String</span>,</a>
-<a class="sourceLine" id="cb3-5" title="5"><span class="ot">    age   ::</span> <span class="dt">Int</span>,</a>
-<a class="sourceLine" id="cb3-6" title="6"><span class="ot">    email ::</span> <span class="dt">String</span></a>
-<a class="sourceLine" id="cb3-7" title="7">}</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">data</span> <span class="dt">Person</span> <span class="ot">=</span></a>
+<a class="sourceLine" id="cb3-2" title="2">    <span class="dt">Person</span> <span class="dt">String</span> <span class="dt">Int</span> <span class="dt">String</span></a>
+<a class="sourceLine" id="cb3-3" title="3"></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="kw">data</span> <span class="dt">Person</span> <span class="ot">=</span> <span class="dt">Person</span> {</a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="ot">    name  ::</span> <span class="dt">String</span>,</a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="ot">    age   ::</span> <span class="dt">Int</span>,</a>
+<a class="sourceLine" id="cb3-7" title="7"><span class="ot">    email ::</span> <span class="dt">String</span></a>
+<a class="sourceLine" id="cb3-8" title="8">}</a></code></pre></div>
 <p>In most programming languages, combining types with AND is often the only way to construct new types.</p>
 <h2 id="further-reading">Further Reading</h2>
 <p><a href="https://codewords.recurse.com/issues/three/algebra-and-calculus-of-algebraic-data-types">https://codewords.recurse.com/issues/three/algebra-and-calculus-of-algebraic-data-types</a></p>

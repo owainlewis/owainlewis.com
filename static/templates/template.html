@@ -47,6 +47,9 @@
     <section id="main" class="post">
       <div class="container">
 	<div class="row">
+	  $if(date-meta)$
+	  <p>Written on: $date-meta$</p>
+	  $endif$
 	  <ul class="toc">
 $toc$
 	  </ul>
