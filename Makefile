@@ -1,12 +1,15 @@
-all: dev
+PANDOC=pandoc
+INPUT = content/algebraic-data-types.md
 
-.PHONY: build
+INPUT_DIR = content
+OUTPUT_DIR = posts
+
+TEMPLATE = static/templates/template.html
+
+FLAGS = --standalone --toc --toc-depth=2 --highlight-style tango
+
+all:
+	@for f in $(shell ls ${INPUT_DIR}); do $${f%%.*}; done
+
 build:
-	python compiler.py
-
-.PHONY: clean
-clean:
-	rm -r posts/*.html
-
-dev: clean build
-	python -m SimpleHTTPServer 5000
+	$(PANDOC) --template $(TEMPLATE) -s $(INPUT) -t html $(FLAGS) -o $(OUTPUT_DIR)/algebraic-data-types.html
