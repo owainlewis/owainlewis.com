@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Owain Lewis | Software Engineering Manager | Software Engineer</title>
+    <meta content="Software Engineering Manager. Freelance Software Engineer. Haskell, Clojure, Java, Scala"
+      name="description" />
+    <meta content="Owain Lewis" name="author" />
+    <meta name="viewport" content="width=device-width">
+        <meta name="author" content="Owain Lewis">
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.2/normalize.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+    <link rel="stylesheet" href="../static/stylesheets/main.css">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-149985638-1"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+	dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'UA-149985638-1');
+    </script>
+  </head>
+  <body>
+    <section id="hero">
+      <div class="overlay"></div>
+      <div class="container">
+	<nav class="menu">
+	  <h1 class="logo"><a href="/">Owain<span>Lewis</span></a></h1>
+	  <ul>
+	    <li><a href="/">Home</a></li>
+	    <li><a href="/posts">Writing</a></li>
+	  </ul>
+	</nav>
+      </div>
+    </section>
+    <section id="main" class="post">
+      <div class="container">
+	<div class="row">
+	  <h1 id="bifunctor">Bifunctor</h1>
+<p><strong>Status: WIP</strong></p>
+<p>This article will look at bifunctors, and how they can be used in the real world. This article assumes some knowlege of functors.</p>
+<p>A bifunctor is a type class of types which give rise to two independent, covariant functors. Some common uses of bifunctor include mapping over <code>Either</code> and <code>Tuple2</code> types. While functor provides a map operation that takes a function <code>A=&gt;B</code> and applies that function over a context <code>F[A] =&gt; F[B]</code>, a bifunctor offers us the bimap operation which takes two functions <code>(A=&gt;B, C=&gt;D)</code> and applie</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">class</span> <span class="dt">Bifunctor</span> (<span class="ot">f::</span> <span class="op">*</span> <span class="ot">-&gt;</span> <span class="op">*</span> <span class="ot">-&gt;</span> <span class="op">*</span>) <span class="kw">where</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="ot">  bimap  ::</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> (c <span class="ot">-&gt;</span> d) <span class="ot">-&gt;</span> f a c <span class="ot">-&gt;</span> f b d</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="ot">  first  ::</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> f a c <span class="ot">-&gt;</span> f b c</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="ot">  second ::</span> (b <span class="ot">-&gt;</span> c) <span class="ot">-&gt;</span> f a b <span class="ot">-&gt;</span> f a c</span>
+<span id="cb1-5"><a href="#cb1-5"></a>  <span class="ot">{-# MINIMAL bimap | first, second #-}</span></span></code></pre></div>
+<p>A Scala implementation of <code>bimap</code> for both <code>Tuple2</code> and <code>Either</code>:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">trait</span> Functor[F[+_]] {</span>
+<span id="cb2-2"><a href="#cb2-2"></a>  <span class="kw">def</span> map[A,B](a: F[A])(f: A =&gt; B): F[B]</span>
+<span id="cb2-3"><a href="#cb2-3"></a>}</span>
+<span id="cb2-4"><a href="#cb2-4"></a></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="kw">trait</span> Bifunctor[F[+_, +_]] {</span>
+<span id="cb2-6"><a href="#cb2-6"></a>  <span class="kw">def</span> bimap[A, B, C, D](fa: F[A, B], f: A =&gt; C, g: B =&gt; D): F[C, D]</span>
+<span id="cb2-7"><a href="#cb2-7"></a>}</span>
+<span id="cb2-8"><a href="#cb2-8"></a></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="kw">object</span> Bifunctor {</span>
+<span id="cb2-10"><a href="#cb2-10"></a>  <span class="kw">implicit</span> <span class="kw">def</span> Tuple2Bifunctor = <span class="kw">new</span> Bifunctor[Tuple2] {</span>
+<span id="cb2-11"><a href="#cb2-11"></a>    <span class="kw">def</span> bimap[A, B, C, D](fa: (A, B), f: A =&gt; C, g: B =&gt; D) =</span>
+<span id="cb2-12"><a href="#cb2-12"></a>      (<span class="fu">f</span>(fa._<span class="dv">1</span>), <span class="fu">g</span>(fa._<span class="dv">2</span>))</span>
+<span id="cb2-13"><a href="#cb2-13"></a>  }</span>
+<span id="cb2-14"><a href="#cb2-14"></a></span>
+<span id="cb2-15"><a href="#cb2-15"></a>  <span class="kw">implicit</span> <span class="kw">def</span> EitherBifunctor = <span class="kw">new</span> Bifunctor[Either] {</span>
+<span id="cb2-16"><a href="#cb2-16"></a>    <span class="kw">def</span> bimap[A, B, C, D](fa: Either[A, B], f: A =&gt; C, g: B =&gt; D) =</span>
+<span id="cb2-17"><a href="#cb2-17"></a>      fa <span class="kw">match</span> {</span>
+<span id="cb2-18"><a href="#cb2-18"></a>        <span class="kw">case</span> <span class="fu">Left</span>(a) =&gt; <span class="fu">Left</span>(<span class="fu">f</span>(a))</span>
+<span id="cb2-19"><a href="#cb2-19"></a>        <span class="kw">case</span> <span class="fu">Right</span>(b) =&gt; <span class="fu">Right</span>(<span class="fu">g</span>(b))</span>
+<span id="cb2-20"><a href="#cb2-20"></a>      }</span>
+<span id="cb2-21"><a href="#cb2-21"></a>  }</span>
+<span id="cb2-22"><a href="#cb2-22"></a>}</span></code></pre></div>
+	</div>
+      </div>
+    </section>
+  </body>
+</html>

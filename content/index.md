@@ -8,3 +8,5 @@
 
 + [Algebraic Data Types](/posts/algebraic-data-types)
 + [Comonads](/posts/comonads)
++ [Bifunctor](/posts/bifunctor)
++ [Profunctor](/posts/profunctor)
