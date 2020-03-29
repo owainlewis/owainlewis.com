@@ -19,6 +19,11 @@ a, a:hover { color: #6390a7; }
     padding: 10px 0 0 20px;
 }
 
+.menu ul, .contact {
+    margin: 0;
+    padding: 0;
+}
+
 .container {
   max-width: 968px;
   margin: 0 auto;
@@ -103,12 +108,13 @@ blockquote {
 #hero nav h1 {
   color: white;
   margin: 0;
-  position: relative;
-  top: 24px;
 }
 
 #hero nav {
-  height: 32px;
+  height: 48px;
+  overflow: hidden;
+  line-height: 96px;
+  padding: 24px;
 }
 
 #hero.article-hero {
@@ -127,8 +133,8 @@ blockquote {
 
 #hero .logo { font-size: 24px; }
 
-.menu h1      { float: left; }
-.menu ul      { float: right; position: relative; top: 31px; }
+.menu h1      { float: left; line-height: 48px; }
+.menu ul     { line-height: 48px; float: right; }
 .menu ul li   { display: inline-block; margin-left: 24px; }
 .menu ul li a { text-decoration: none; color: white; color: rgba(255,255,255,0.8); }
 

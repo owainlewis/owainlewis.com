@@ -34,6 +34,7 @@
 	<nav class="menu">
 	  <h1 class="logo"><a href="/">Owain<span>Lewis</span></a></h1>
 	  <ul>
+	    <li><a href="/">Home</a></li>
 	    <li><a href="/posts">Writing</a></li>
 	  </ul>
 	</nav>
@@ -42,26 +43,30 @@
     <section id="main" class="post">
       <div class="container">
 	<div class="row">
-	  	  <ul class="toc">
-<ul>
-<li><a href="#comonads">Comonads</a>
-<ul>
-<li><a href="#comonad-laws">Comonad Laws</a></li>
-</ul></li>
-</ul>
-	  </ul>
-<h1 id="comonads">Comonads</h1>
+	  <h1 id="comonads">Comonads</h1>
 <p>A comonad is the categorical dual of a monad. In simple terms, it is a monad with the arrows reversed. It is a typeclass with three operations:</p>
 <ul>
 <li>extract (the dual of return)</li>
 <li>duplicate (the dual of join)</li>
 <li>extend (the dual of bind)</li>
 </ul>
-<p>It’s helpful to compare comonads with monads for better intuition. The categorical dual of a Monad is a Comonad which is defined as follows</p>
+<p>In general, comonads are not as useful or widely used as monads but they can be useful in some cases.</p>
+<p>It’s helpful to compare comonads with monads for better intuition. A monad provides a way of inserting a value in a container using <code>return</code>. Once a value is inside the monad, there is no standard interface for extracting the value from its container. Conversely, a comonad gives you a way of extracting a value from its container using <code>extract</code> but does not provide a way to insert a value.</p>
+<p>The Comonad typeclass is defined as follows</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">class</span> <span class="dt">Functor</span> w <span class="ot">=&gt;</span> <span class="dt">Comonad</span> w <span class="kw">where</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="ot">    extract ::</span> w a <span class="ot">-&gt;</span> a</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="ot">    duplicate ::</span> w a <span class="ot">-&gt;</span> w (w a)</span>
 <span id="cb1-4"><a href="#cb1-4"></a><span class="ot">    extend ::</span> (w a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> w a <span class="ot">-&gt;</span> w b</span></code></pre></div>
+<p>The Scala definitions below are, IMO, easier to understand. We replace bind (or flatMap) with the join opeerator since it’s more intuative.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">trait</span> Monad[M[_]] <span class="kw">extends</span> Functor[M] {</span>
+<span id="cb2-2"><a href="#cb2-2"></a>  <span class="kw">def</span> <span class="dt">unit</span>[A](a: A): M[A]</span>
+<span id="cb2-3"><a href="#cb2-3"></a>  <span class="kw">def</span> join[A](mma: M[M[A]]): M[A]</span>
+<span id="cb2-4"><a href="#cb2-4"></a>}</span></code></pre></div>
+<p>A comonad is the same as a monad in reverse</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">trait</span> Comonad[W[_]] <span class="kw">extends</span> Functor[W] {</span>
+<span id="cb3-2"><a href="#cb3-2"></a>  <span class="kw">def</span> counit[A](w: W[A]): A</span>
+<span id="cb3-3"><a href="#cb3-3"></a>  <span class="kw">def</span> duplicate[A](wa: W[A]): W[W[A]]</span>
+<span id="cb3-4"><a href="#cb3-4"></a>}</span></code></pre></div>
 <h2 id="comonad-laws">Comonad Laws</h2>
 <ul>
 <li>Left Identity</li>
@@ -71,10 +76,5 @@
 	</div>
       </div>
     </section>
-    <footer id="footer">
-      <div class="container">
-	Copyright 2020 Owain Lewis
-      </div>
-    </footer>
   </body>
 </html>
