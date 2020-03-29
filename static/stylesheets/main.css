@@ -114,7 +114,7 @@ blockquote {
   height: 48px;
   overflow: hidden;
   line-height: 96px;
-  padding: 24px;
+  padding: 24px 0;
 }
 
 #hero.article-hero {
