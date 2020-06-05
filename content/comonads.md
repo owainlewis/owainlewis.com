@@ -23,7 +23,7 @@ class Functor w => Comonad w where
 	extend    :: (w a -> b) -> w a -> w b
 ```
 
-The Scala definitions below are, IMO, easier to understand. We replace bind (or flatMap) with the join opeerator since it's more intuative.
+The Scala definitions below are, IMO, easier to understand. We replace bind (or flatMap) with the join operator since it's more intuative.
 
 ```scala
 trait Monad[M[_]] extends Functor[M] {
