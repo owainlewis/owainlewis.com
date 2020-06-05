@@ -1,6 +1,6 @@
 % Comonads
 % Owain Lewis
-% 28/04/2020
+% 28/03/2020
 
 # Comonads
 
@@ -18,9 +18,9 @@ The Comonad typeclass is defined as follows
 
 ```haskell
 class Functor w => Comonad w where
-	extract :: w a -> a
+	extract   :: w a -> a
 	duplicate :: w a -> w (w a)
-	extend :: (w a -> b) -> w a -> w b
+	extend    :: (w a -> b) -> w a -> w b
 ```
 
 The Scala definitions below are, IMO, easier to understand. We replace bind (or flatMap) with the join opeerator since it's more intuative.

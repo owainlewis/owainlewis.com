@@ -1,14 +1,14 @@
 % Bifunctor
 % Owain Lewis
-% 28/04/2020
+% 28/03/2020
 
 # Bifunctor
 
-**Status: WIP**
+This article will look at bifunctors, and how they can be used in the real world. This article assumes some knowlege of functors. A simple way to think about bifunctor is as a functor of two arguments.
 
-This article will look at bifunctors, and how they can be used in the real world. This article assumes some knowlege of functors.
-
-A bifunctor is a type class of types which give rise to two independent, covariant functors. Some common uses of bifunctor include mapping over `Either` and `Tuple2` types. While functor provides a map operation that takes a function `A = >B` and applies that function over a context `F[A] => F[B]`, a bifunctor offers us the bimap operation which takes two functions `(A = >B, C => D)` and applies one or both of these functions over a context.
+A bifunctor is a type class of types which give rise to two independent, covariant functors. Some common uses of bifunctor include mapping over `Either` and `Tuple2` types.
+While functor provides a map operation that takes a function `A = >B` and applies that function over a context `F[A] => F[B]`, a bifunctor offers us the bimap operation which takes two
+functions `(A = >B, C => D)` and applies one or both of these functions over a context.
 
 In Haskell, we can define a bifunctor as:
 

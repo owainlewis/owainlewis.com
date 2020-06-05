@@ -1,7 +1,7 @@
 all: build
 
 .PHONY: server
-server:
+server: build
 	@python3 -m http.server 8000
 
 .PHONY: clean

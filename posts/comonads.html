@@ -27,7 +27,7 @@
       gtag('config', 'UA-149985638-1');
     </script>
   </head>
-  <body>
+  <body class="blog-page">
     <section id="hero">
       <div class="overlay"></div>
       <div class="container">
@@ -54,9 +54,9 @@
 <p>It’s helpful to compare comonads with monads for better intuition. A monad provides a way of inserting a value in a container using <code>return</code>. Once a value is inside the monad, there is no standard interface for extracting the value from its container. Conversely, a comonad gives you a way of extracting a value from its container using <code>extract</code> but does not provide a way to insert a value.</p>
 <p>The Comonad typeclass is defined as follows</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">class</span> <span class="dt">Functor</span> w <span class="ot">=&gt;</span> <span class="dt">Comonad</span> w <span class="kw">where</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="ot">    extract ::</span> w a <span class="ot">-&gt;</span> a</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="ot">    extract   ::</span> w a <span class="ot">-&gt;</span> a</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="ot">    duplicate ::</span> w a <span class="ot">-&gt;</span> w (w a)</span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="ot">    extend ::</span> (w a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> w a <span class="ot">-&gt;</span> w b</span></code></pre></div>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="ot">    extend    ::</span> (w a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> w a <span class="ot">-&gt;</span> w b</span></code></pre></div>
 <p>The Scala definitions below are, IMO, easier to understand. We replace bind (or flatMap) with the join opeerator since it’s more intuative.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">trait</span> Monad[M[_]] <span class="kw">extends</span> Functor[M] {</span>
 <span id="cb2-2"><a href="#cb2-2"></a>  <span class="kw">def</span> <span class="dt">unit</span>[A](a: A): M[A]</span>

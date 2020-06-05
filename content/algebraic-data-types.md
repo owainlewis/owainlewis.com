@@ -1,6 +1,6 @@
 % Algebraic Data Types
 % Owain Lewis
-% 28/04/2020
+% 28/03/2020
 
 # Algebraic Data Types (ADT)
 
