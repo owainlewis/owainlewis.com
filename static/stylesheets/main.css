@@ -118,7 +118,6 @@ blockquote {
 }
 
 #hero nav {
-  height: 48px;
   overflow: hidden;
   line-height: 96px;
   padding: 24px 0;
@@ -148,7 +147,7 @@ blockquote {
 #hero .inner {
   text-align: center;
   color: white;
-  padding: 240px 120px;
+  padding: 180px;
 }
 
 #hero h2 {
