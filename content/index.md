@@ -7,5 +7,3 @@
 + [Algebraic Data Types](/posts/algebraic-data-types)
 + [Comonads](/posts/comonads)
 + [Bifunctor](/posts/bifunctor)
-
-## Software Engineering Management

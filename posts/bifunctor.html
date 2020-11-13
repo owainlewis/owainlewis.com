@@ -47,34 +47,34 @@
 <p>This article will look at bifunctors, and how they can be used in the real world. This article assumes some knowlege of functors. A simple way to think about bifunctor is as a functor of two arguments.</p>
 <p>A bifunctor is a type class of types which give rise to two independent, covariant functors. Some common uses of bifunctor include mapping over <code>Either</code> and <code>Tuple2</code> types. While functor provides a map operation that takes a function <code>A = &gt;B</code> and applies that function over a context <code>F[A] =&gt; F[B]</code>, a bifunctor offers us the bimap operation which takes two functions <code>(A = &gt;B, C =&gt; D)</code> and applies one or both of these functions over a context.</p>
 <p>In Haskell, we can define a bifunctor as:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">class</span> <span class="dt">Bifunctor</span> (<span class="ot">f::</span> <span class="op">*</span> <span class="ot">-&gt;</span> <span class="op">*</span> <span class="ot">-&gt;</span> <span class="op">*</span>) <span class="kw">where</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="ot">  bimap  ::</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> (c <span class="ot">-&gt;</span> d) <span class="ot">-&gt;</span> f a c <span class="ot">-&gt;</span> f b d</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="ot">  first  ::</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> f a c <span class="ot">-&gt;</span> f b c</span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="ot">  second ::</span> (b <span class="ot">-&gt;</span> c) <span class="ot">-&gt;</span> f a b <span class="ot">-&gt;</span> f a c</span>
-<span id="cb1-5"><a href="#cb1-5"></a>  <span class="ot">{-# MINIMAL bimap | first, second #-}</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">class</span> <span class="dt">Bifunctor</span> (<span class="ot">f::</span> <span class="fu">*</span> <span class="ot">-&gt;</span> <span class="fu">*</span> <span class="ot">-&gt;</span> <span class="fu">*</span>) <span class="kw">where</span></a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="ot">  bimap  ::</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> (c <span class="ot">-&gt;</span> d) <span class="ot">-&gt;</span> f a c <span class="ot">-&gt;</span> f b d</a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="ot">  first  ::</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> f a c <span class="ot">-&gt;</span> f b c</a>
+<a class="sourceLine" id="cb1-4" title="4"><span class="ot">  second ::</span> (b <span class="ot">-&gt;</span> c) <span class="ot">-&gt;</span> f a b <span class="ot">-&gt;</span> f a c</a>
+<a class="sourceLine" id="cb1-5" title="5">  <span class="ot">{-# MINIMAL bimap | first, second #-}</span></a></code></pre></div>
 <p>A Scala implementation of <code>bimap</code> for both <code>Tuple2</code> and <code>Either</code>:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">trait</span> Functor[F[+_]] {</span>
-<span id="cb2-2"><a href="#cb2-2"></a>  <span class="kw">def</span> map[A,B](a: F[A])(f: A =&gt; B): F[B]</span>
-<span id="cb2-3"><a href="#cb2-3"></a>}</span>
-<span id="cb2-4"><a href="#cb2-4"></a></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="kw">trait</span> Bifunctor[F[+_, +_]] {</span>
-<span id="cb2-6"><a href="#cb2-6"></a>  <span class="kw">def</span> bimap[A, B, C, D](fa: F[A, B], f: A =&gt; C, g: B =&gt; D): F[C, D]</span>
-<span id="cb2-7"><a href="#cb2-7"></a>}</span>
-<span id="cb2-8"><a href="#cb2-8"></a></span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="kw">object</span> Bifunctor {</span>
-<span id="cb2-10"><a href="#cb2-10"></a>  <span class="kw">implicit</span> <span class="kw">def</span> Tuple2Bifunctor = <span class="kw">new</span> Bifunctor[Tuple2] {</span>
-<span id="cb2-11"><a href="#cb2-11"></a>    <span class="kw">def</span> bimap[A, B, C, D](fa: (A, B), f: A =&gt; C, g: B =&gt; D) =</span>
-<span id="cb2-12"><a href="#cb2-12"></a>      (<span class="fu">f</span>(fa._<span class="dv">1</span>), <span class="fu">g</span>(fa._<span class="dv">2</span>))</span>
-<span id="cb2-13"><a href="#cb2-13"></a>  }</span>
-<span id="cb2-14"><a href="#cb2-14"></a></span>
-<span id="cb2-15"><a href="#cb2-15"></a>  <span class="kw">implicit</span> <span class="kw">def</span> EitherBifunctor = <span class="kw">new</span> Bifunctor[Either] {</span>
-<span id="cb2-16"><a href="#cb2-16"></a>    <span class="kw">def</span> bimap[A, B, C, D](fa: Either[A, B], f: A =&gt; C, g: B =&gt; D) =</span>
-<span id="cb2-17"><a href="#cb2-17"></a>      fa <span class="kw">match</span> {</span>
-<span id="cb2-18"><a href="#cb2-18"></a>        <span class="kw">case</span> <span class="fu">Left</span>(a) =&gt; <span class="fu">Left</span>(<span class="fu">f</span>(a))</span>
-<span id="cb2-19"><a href="#cb2-19"></a>        <span class="kw">case</span> <span class="fu">Right</span>(b) =&gt; <span class="fu">Right</span>(<span class="fu">g</span>(b))</span>
-<span id="cb2-20"><a href="#cb2-20"></a>      }</span>
-<span id="cb2-21"><a href="#cb2-21"></a>  }</span>
-<span id="cb2-22"><a href="#cb2-22"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode scala"><code class="sourceCode scala"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">trait</span> Functor[F[+_]] {</a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="kw">def</span> map[A,B](a: F[A])(f: A =&gt; B): F[B]</a>
+<a class="sourceLine" id="cb2-3" title="3">}</a>
+<a class="sourceLine" id="cb2-4" title="4"></a>
+<a class="sourceLine" id="cb2-5" title="5"><span class="kw">trait</span> Bifunctor[F[+_, +_]] {</a>
+<a class="sourceLine" id="cb2-6" title="6">  <span class="kw">def</span> bimap[A, B, C, D](fa: F[A, B], f: A =&gt; C, g: B =&gt; D): F[C, D]</a>
+<a class="sourceLine" id="cb2-7" title="7">}</a>
+<a class="sourceLine" id="cb2-8" title="8"></a>
+<a class="sourceLine" id="cb2-9" title="9"><span class="kw">object</span> Bifunctor {</a>
+<a class="sourceLine" id="cb2-10" title="10">  <span class="kw">implicit</span> <span class="kw">def</span> Tuple2Bifunctor = <span class="kw">new</span> Bifunctor[Tuple2] {</a>
+<a class="sourceLine" id="cb2-11" title="11">    <span class="kw">def</span> bimap[A, B, C, D](fa: (A, B), f: A =&gt; C, g: B =&gt; D) =</a>
+<a class="sourceLine" id="cb2-12" title="12">      (<span class="fu">f</span>(fa._<span class="dv">1</span>), <span class="fu">g</span>(fa._<span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb2-13" title="13">  }</a>
+<a class="sourceLine" id="cb2-14" title="14"></a>
+<a class="sourceLine" id="cb2-15" title="15">  <span class="kw">implicit</span> <span class="kw">def</span> EitherBifunctor = <span class="kw">new</span> Bifunctor[Either] {</a>
+<a class="sourceLine" id="cb2-16" title="16">    <span class="kw">def</span> bimap[A, B, C, D](fa: Either[A, B], f: A =&gt; C, g: B =&gt; D) =</a>
+<a class="sourceLine" id="cb2-17" title="17">      fa <span class="kw">match</span> {</a>
+<a class="sourceLine" id="cb2-18" title="18">        <span class="kw">case</span> <span class="fu">Left</span>(a) =&gt; <span class="fu">Left</span>(<span class="fu">f</span>(a))</a>
+<a class="sourceLine" id="cb2-19" title="19">        <span class="kw">case</span> <span class="fu">Right</span>(b) =&gt; <span class="fu">Right</span>(<span class="fu">g</span>(b))</a>
+<a class="sourceLine" id="cb2-20" title="20">      }</a>
+<a class="sourceLine" id="cb2-21" title="21">  }</a>
+<a class="sourceLine" id="cb2-22" title="22">}</a></code></pre></div>
 	</div>
       </div>
     </section>
